@@ -48,10 +48,10 @@ timeIndMyel = np.logical_and(tCAP > timesSimMyel[0], tCAP < timesSimMyel[1])
 
 for fieldTypeInd in range(3):
     CAP = CAPs[fieldTypeInd]
-    f_sim_myel, Pxx_sim_myel = signal.welch(CAP[timeIndMyel] - np.mean(CAP[timeIndMyel]), 1000. / (tCAP[1] - tCAP[0]), nperseg=1000) #700 # 8192
+    f_sim_myel, Pxx_sim_myel = signal.welch(CAP[timeIndMyel] - np.mean(CAP[timeIndMyel]), 1000. / (tCAP[1] - tCAP[0]), nperseg=1000)
 
     timeIndUnmyel = np.logical_and(tCAP > timesSimUnmyel[0], tCAP < timesSimUnmyel[1])
-    f_sim_unmyel, Pxx_sim_unmyel = signal.welch(CAP[timeIndUnmyel] - np.mean(CAP[timeIndUnmyel]), 1000. / (tCAP[1] - tCAP[0]), nperseg=2000) #1500 # 8192
+    f_sim_unmyel, Pxx_sim_unmyel = signal.welch(CAP[timeIndUnmyel] - np.mean(CAP[timeIndUnmyel]), 1000. / (tCAP[1] - tCAP[0]), nperseg=2000)
 
     for rowInd in range(2):
         axarr[rowInd][1].plot(f_sim_myel/1000, 20*np.log10(np.sqrt(Pxx_sim_myel / np.max(Pxx_sim_myel))), label=fieldStrings[fieldTypeInd],
