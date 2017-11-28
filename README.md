@@ -22,27 +22,11 @@ Single fiber action potential (SFAP) of a myelinated and an unmyelinated fibre i
 
 ## fig8B
 
-Amplitude of SFAPs over diameter for both axon types in all three media.
-
-### calculation
-
-Simulate and save the SFAPs in a file to disk.
-
-### loading
-
-Load the simulated SFAPs and plot the curves.
+Amplitude of SFAPs over diameter for both axon types in all three media. `...calculation`: simulate and save the SFAPs in a file to disk. `...loading`: load the simulated SFAPs and plot the curves.
 
 ## fig9
 
-Influence of cuff width length on SFAP amplitude for both axon types.
-
-### calculation
-
-Simulate and save the SFAPs in a file to disk.
-
-### loading
-
-Load the simulated SFAPs and plot the curves.
+Influence of cuff width length on SFAP amplitude for both axon types. `...calculation`: simulate and save the SFAPs in a file to disk. `...loading`: load the simulated SFAPs and plot the curves.
 
 ## fig10
 
@@ -66,19 +50,11 @@ SFAPs from tortuous axons are generated and compared in terms of similarity.
 
 ## fig15
 
-Activaton of axons in an extracellularly stimulated nerve at different degrees of tortuosity is computed and displayed.
-
-### calculation
-
-A dictionary of activation ratios is generated and saved.
-
-### loading
-
-A dictionary previously generated can be selected and the activation is displayed over stimulation current amplitudes and degrees of tortuosity.
+Activaton of axons in an extracellularly stimulated nerve at different degrees of tortuosity is computed and displayed. `...calculation`: a dictionary of activation ratios is generated and saved. `...loading`:  a previously generated dictionary can be selected and the activation is displayed over stimulation current amplitudes and degrees of tortuosity.
 
 # References
 
-[1][McIntyre, C C, A G Richardson, and W M Grill (2002). “Modeling the excitability of mammalian nerve fibers: Influence of afterpotentials on the recovery cycle.” Journal of Neurophysiology 87.2, pp. 995–1006.]
+[1] McIntyre, C C, A G Richardson, and W M Grill (2002). “Modeling the excitability of mammalian nerve fibers: Influence of afterpotentials on the recovery cycle.” Journal of Neurophysiology 87.2, pp. 995–1006.
 
 
 
