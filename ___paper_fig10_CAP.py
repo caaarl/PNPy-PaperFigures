@@ -6,7 +6,7 @@ import cPickle as pickle
 
 # two simulations, one for myelinated fibres, one for unmyelinated ones.
 
-electrodeDistance = 90000 # 9cm bundle length
+electrodeDistance = 70000 # 9cm bundle length
 
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------- Simulation parameters are the same for both --------------------------------------

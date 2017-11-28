@@ -214,6 +214,6 @@ for ax in axs:
 
 plt.tight_layout()
 
-plt.savefig(os.path.join('figures', 'fig13.eps'), format='eps', dpi=300)
+plt.savefig(os.path.join('figures', 'fig14.eps'), format='eps', dpi=300)
 
 plt.show()
