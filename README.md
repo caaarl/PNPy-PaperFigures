@@ -18,7 +18,7 @@ Potential profile caused by a current point source in a homogeneous medium, a ne
 
 ## fig8A: Action potentials
 
-Single fiber action potential (SFAP) of a myelinated and an unmyelinated fibre in the three different media.
+Single fibre action potential (SFAP) of a myelinated and an unmyelinated fibre in the three different media.
 
 ## fig8B: Action potential amplitudes
 
@@ -50,7 +50,7 @@ SFAPs from tortuous axons are generated and compared in terms of similarity.
 
 ## fig15: Stimulation of tortuous axons
 
-Activaton of axons in an extracellularly stimulated nerve at different degrees of tortuosity is computed and displayed. `...calculation`: a dictionary of activation ratios is generated and saved. `...loading`:  a previously generated dictionary can be selected and the activation is displayed over stimulation current amplitudes and degrees of tortuosity.
+Activation of axons in an extracellularly stimulated nerve at different degrees of tortuosity is computed and displayed. `...calculation`: a dictionary of activation ratios is generated and saved. `...loading`:  a previously generated dictionary can be selected and the activation is displayed over stimulation current amplitudes and degrees of tortuosity.
 
 # References
 
