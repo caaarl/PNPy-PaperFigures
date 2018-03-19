@@ -53,7 +53,9 @@ for i in range(2):
     axarr[i].set_xticklabels(diameterArrays[i], rotation=45)
     axarr[i].set_xlabel('diameter (um)')
 
-
+if not os.path.exists('figures'):
+    os.makedirs('figures')
+    
 plt.savefig(os.path.join('figures', 'fig9_cuffWidthAmplitude.eps'),
         format='eps', dpi=300)
 

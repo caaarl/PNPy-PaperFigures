@@ -1,6 +1,6 @@
-import PNPy
+import PyPNS
 import matplotlib.pyplot as plt
-from PNPy.takeTime import *
+from PyPNS.takeTime import *
 import numpy as np
 import os
 from pprint import pprint
@@ -31,7 +31,7 @@ numberOfAxons = 15
 
 # bundle guide
 segmentLengthAxon = 30
-bundleGuide = PNPy.createGeometry.get_bundle_guide_straight(lengthOfBundle, segmentLengthAxon)
+bundleGuide = PyPNS.createGeometry.get_bundle_guide_straight(lengthOfBundle, segmentLengthAxon)
 
 # ----------------------------- recording params -------------------------------
 
@@ -99,11 +99,11 @@ for i in [1]:
                                                    # 'timeRes': timeRes,
                                                    }
 
-                        elecPosStim = PNPy.createGeometry.circular_electrode(bundleGuide, positionAlongBundle=12500, radius=235,
+                        elecPosStim = PyPNS.createGeometry.circular_electrode(bundleGuide, positionAlongBundle=12500, radius=235,
                                                                              numberOfPoles=2, poleDistance=1000)
-                        extPotMechStim = PNPy.Extracellular.precomputedFEM(bundleGuide, 'oil190Inner50Endoneurium')
+                        extPotMechStim = PyPNS.Extracellular.precomputedFEM(bundleGuide, 'oil190Inner50Endoneurium')
 
-                        extraParameters = {'stimulusSignal': PNPy.signalGeneration.rectangular(**rectangularSignalParams),
+                        extraParameters = {'stimulusSignal': PyPNS.signalGeneration.rectangular(**rectangularSignalParams),
                                            'electrodePositions': elecPosStim,
                                            'extPotMech': extPotMechStim}  # extPotMechStim
 
@@ -126,10 +126,10 @@ for i in [1]:
                                             }
 
                         # create the bundle with all properties of axons and recording setup
-                        bundle = PNPy.Bundle(**bundleParameters)
+                        bundle = PyPNS.Bundle(**bundleParameters)
 
                         # spiking through a single electrical stimulation
-                        bundle.add_excitation_mechanism(PNPy.StimField(**extraParameters))
+                        bundle.add_excitation_mechanism(PyPNS.StimField(**extraParameters))
 
                         # run the simulation
                         bundle.simulate()
@@ -162,7 +162,8 @@ else:
 
     print 'Overall processing of took %5.2f' % (time.time() - tStart)
 
+    if not os.path.exists('activationExtracellular'):
+      os.makedirs('activationExtracellular')
+
     pickle.dump(saveDict, open(os.path.join('activationExtracellular', 'activationPaper1.dict'), "wb"))
-
-
 

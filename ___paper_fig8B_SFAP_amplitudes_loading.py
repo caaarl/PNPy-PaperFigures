@@ -42,7 +42,9 @@ plt.legend(loc='best', frameon=False)
 plt.xlabel('diameter ($\mu$m)')
 plt.ylabel('amplitude ($\mu$V)')
 
-
+if not os.path.exists('figures'):
+    os.makedirs('figures')
+    
 plt.savefig(os.path.join('figures', 'SFAPAmps.eps'),
         format='eps', dpi=300)
 

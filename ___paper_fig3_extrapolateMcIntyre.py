@@ -4,7 +4,7 @@ import numpy as np
 # for LaTeX rendering
 from matplotlib import rc
 rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-rc('text', usetex=True)
+# rc('text', usetex=True) # doesn't work on Mac, can be uncommented under Linux
 rc('text.latex', preamble='\usepackage{sfmath}')
 
 # values from McIntyre et al. 2002
@@ -88,6 +88,8 @@ for axInd, ax in enumerate((ax1, ax2, ax3)):
 plt.tight_layout()
 
 import os
+if not os.path.exists('figures'):
+    os.makedirs('figures')
 plt.savefig(os.path.join('figures', 'fig3_extrapolateMcIntyre.eps'), format='eps', dpi=300)
 
 plt.show()

@@ -1,4 +1,4 @@
-import PNPy
+import PyPNS
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -14,7 +14,7 @@ rectangularSignalParams = {'amplitude': 10., # 100. #50,  # Pulse amplitude (mA)
                            'waveform': 'MONOPHASIC',  # Type of waveform either "MONOPHASIC" or "BIPHASIC" symmetric
                            'delay': 0.,  # ms
                            }
-intraParameters = {'stimulusSignal': PNPy.signalGeneration.rectangular(**rectangularSignalParams)}
+intraParameters = {'stimulusSignal': PyPNS.signalGeneration.rectangular(**rectangularSignalParams)}
 
 # plot configuration; colorblind compatible colors
 colors = np.array(((0., 158., 115.), (230., 159., 0.), (86., 180., 233.), (0.,0.,0.)))/255
@@ -41,10 +41,10 @@ for typeInd in [0,1]:
                         }
 
     # create the bundle with all properties of axons and recording setup
-    bundle = PNPy.Bundle(**bundleParameters)
+    bundle = PyPNS.Bundle(**bundleParameters)
 
     # spiking through a single electrical stimulation
-    bundle.add_excitation_mechanism(PNPy.StimIntra(**intraParameters))
+    bundle.add_excitation_mechanism(PyPNS.StimIntra(**intraParameters))
 
     # run the simulation
     bundle.simulate()
@@ -102,6 +102,8 @@ for axInd, ax in enumerate(axarr):
          transform = ax.transAxes)
 
 import os
+if not os.path.exists('figures'):
+    os.makedirs('figures')
 plt.savefig(os.path.join('figures', 'fig6_imemTimecourse.eps'), format='eps', dpi=300)
 
 plt.show()

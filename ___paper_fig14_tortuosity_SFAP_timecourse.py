@@ -1,4 +1,4 @@
-import PNPy
+ƒƒimport PyPNS
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -12,7 +12,7 @@ nAxons = 10
 lengthOfBundle = 25000 # um
 
 # bundle guide
-bundleGuide = PNPy.createGeometry.get_bundle_guide_straight(lengthOfBundle, segmentLengthAxon=30)
+bundleGuide = PyPNS.createGeometry.get_bundle_guide_straight(lengthOfBundle, segmentLengthAxon=30)
 
 # axon definitions
 myelinatedParameters = {'fiberD': 3}
@@ -30,7 +30,7 @@ rectangularSignalParams = {'amplitude': 50., #50,  # Pulse amplitude (mA)
                            }
 
 
-intraParameters = {'stimulusSignal': PNPy.signalGeneration.rectangular(**rectangularSignalParams)}
+intraParameters = {'stimulusSignal': PyPNS.signalGeneration.rectangular(**rectangularSignalParams)}
 
 
 # plotting parameters
@@ -74,16 +74,16 @@ for i in [0,1]:
                             }
 
         # create the bundle with all properties of axons and recording setup
-        bundle = PNPy.Bundle(**bundleParameters)
+        bundle = PyPNS.Bundle(**bundleParameters)
 
         # create the extracellular space models
         LFPMech = []
-        LFPMech.append(PNPy.Extracellular.homogeneous(sigma=1))
-        LFPMech.append(PNPy.Extracellular.precomputedFEM(bundle.bundleCoords))
-        LFPMech.append(PNPy.Extracellular.analytic(bundle.bundleCoords))
+        LFPMech.append(PyPNS.Extracellular.homogeneous(sigma=1))
+        LFPMech.append(PyPNS.Extracellular.precomputedFEM(bundle.bundleCoords))
+        LFPMech.append(PyPNS.Extracellular.analytic(bundle.bundleCoords))
 
         # spiking through a single electrical stimulation
-        bundle.add_excitation_mechanism(PNPy.StimIntra(**intraParameters))
+        bundle.add_excitation_mechanism(PyPNS.StimIntra(**intraParameters))
 
         if i == 1:
 
@@ -97,7 +97,7 @@ for i in [0,1]:
                                       'poleDistance': 1000,
                                       'numberOfPoints': 20,
                                       }
-            electrodePos = PNPy.createGeometry.circular_electrode(**recordingParametersNew)
+            electrodePos = PyPNS.createGeometry.circular_electrode(**recordingParametersNew)
 
         else:
 
@@ -108,12 +108,12 @@ for i in [0,1]:
                                       'poleDistance': 1000,
                                       'numberOfPoints': 20,
                                       }
-            electrodePos = PNPy.createGeometry.circular_electrode(**recordingParametersNew)
+            electrodePos = PyPNS.createGeometry.circular_electrode(**recordingParametersNew)
 
         # combine electrode position and extracellular field model into a recording mechanism and add to bundle
         modularRecMechs = [0 for ii in range(3)]
         for recMechInd in range(3):
-            modularRecMechs[recMechInd] = PNPy.RecordingMechanism(electrodePos, LFPMech[recMechInd])
+            modularRecMechs[recMechInd] = PyPNS.RecordingMechanism(electrodePos, LFPMech[recMechInd])
             bundle.add_recording_mechanism(modularRecMechs[recMechInd])
 
         # run the simulation
@@ -213,6 +213,9 @@ for ax in axs:
     ax.yaxis.set_ticks_position('left')
 
 plt.tight_layout()
+
+if not os.path.exists('figures'):
+    os.makedirs('figures')
 
 plt.savefig(os.path.join('figures', 'fig14.eps'), format='eps', dpi=300)
 

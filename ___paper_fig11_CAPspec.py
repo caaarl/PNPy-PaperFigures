@@ -81,6 +81,9 @@ for ax in axarr.flatten():
     ax.xaxis.set_ticks_position('bottom')
     ax.yaxis.set_ticks_position('left')
 
+if not os.path.exists('figures'):
+    os.makedirs('figures')
+
 plt.savefig(os.path.join('figures', 'fig11_spectrum.eps'),
         format='eps', dpi=300)
 

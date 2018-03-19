@@ -1,5 +1,5 @@
-import PNPy
-import PNPy.analyticFnGen
+import PyPNS
+import PyPNS.analyticFnGen
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -16,7 +16,7 @@ rectangularSignalParams = {'amplitude': 5., #50,  # Pulse amplitude (mA)
                            # 'timeRes': timeRes,
                            }
 
-intraParameters = {'stimulusSignal': PNPy.signalGeneration.rectangular(**rectangularSignalParams)}
+intraParameters = {'stimulusSignal': PyPNS.signalGeneration.rectangular(**rectangularSignalParams)}
 
 
 
@@ -85,19 +85,19 @@ for i in [0,1]:
                             'timeRes': dt,
 
                             'saveV': False,
-                            'saveLocation': '/media/carl/S/PNPy'
+                            # 'saveLocation': '/path/to/save/directory'
                             }
 
         # create the bundle with all properties of axons and recording setup
-        bundle = PNPy.Bundle(**bundleParameters)
+        bundle = PyPNS.Bundle(**bundleParameters)
 
         # create the extracellular media
         LFPMechs = []
         for cuffWidthInd, cuffWidth in enumerate(cuffWidths):
-            LFPMechs.append(PNPy.Extracellular.analytic(bundle.bundleCoords, interpolator=PNPy.analyticFnGen.idealizedCuff(cuffWidth)))
+            LFPMechs.append(PyPNS.Extracellular.analytic(bundle.bundleCoords, interpolator=PyPNS.analyticFnGen.idealizedCuff(cuffWidth)))
 
         # spiking through a single electrical stimulation
-        bundle.add_excitation_mechanism(PNPy.StimIntra(**intraParameters))
+        bundle.add_excitation_mechanism(PyPNS.StimIntra(**intraParameters))
 
         # recording position
         elecDist = 0
@@ -123,12 +123,12 @@ for i in [0,1]:
                                       'poleDistance': 1000,
                                       }
 
-        electrodePos = PNPy.createGeometry.circular_electrode(**recordingParametersNew)
+        electrodePos = PyPNS.createGeometry.circular_electrode(**recordingParametersNew)
 
         # compose extracellular medium model and recording electrode to a recording mechanism
         modularRecMechs = []
         for recMechIndex in range(len(cuffWidths)):
-            modularRecMechs.append(PNPy.RecordingMechanism(electrodePos, LFPMechs[recMechIndex]))
+            modularRecMechs.append(PyPNS.RecordingMechanism(electrodePos, LFPMechs[recMechIndex]))
             bundle.add_recording_mechanism(modularRecMechs[-1])
 
         # run the simulation
@@ -147,5 +147,8 @@ for i in [0,1]:
 
         bundle.clear_all_CAP_files()
         bundle = None
+
+if not os.path.exists('SFAPs'):
+    os.makedirs('SFAPs')
 
 pickle.dump(saveDict, open(os.path.join('SFAPs', 'SFAPsCuffWidth3.dict'), "wb"))

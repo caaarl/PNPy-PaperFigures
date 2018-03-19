@@ -1,4 +1,4 @@
-import PNPy
+import PyPNS
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -16,7 +16,7 @@ rectangularSignalParams = {'amplitude': 10., #50,  # Pulse amplitude (mA)
                            # 'timeRes': timeRes,
                            }
 #
-intraParameters = {'stimulusSignal': PNPy.signalGeneration.rectangular(**rectangularSignalParams)}
+intraParameters = {'stimulusSignal': PyPNS.signalGeneration.rectangular(**rectangularSignalParams)}
 
 
 
@@ -79,16 +79,16 @@ for i in [0,1]:
                             }
 
         # create the bundle with all properties of axons and recording setup
-        bundle = PNPy.Bundle(**bundleParameters)
+        bundle = PyPNS.Bundle(**bundleParameters)
 
         # extracellular medium models
         LFPMech = []
-        LFPMech.append(PNPy.Extracellular.homogeneous(sigma=1))
-        LFPMech.append(PNPy.Extracellular.precomputedFEM(bundle.bundleCoords))
-        LFPMech.append(PNPy.Extracellular.analytic(bundle.bundleCoords))
+        LFPMech.append(PyPNS.Extracellular.homogeneous(sigma=1))
+        LFPMech.append(PyPNS.Extracellular.precomputedFEM(bundle.bundleCoords))
+        LFPMech.append(PyPNS.Extracellular.analytic(bundle.bundleCoords))
 
         # spiking through a single electrical stimulation
-        bundle.add_excitation_mechanism(PNPy.StimIntra(**intraParameters))
+        bundle.add_excitation_mechanism(PyPNS.StimIntra(**intraParameters))
 
         # position on node for myelinated fibers, don't care about position for unmyelinated ones
         if i == 1:
@@ -109,12 +109,12 @@ for i in [0,1]:
                                       'poleDistance': 1000,
                                       }
 
-        electrodePos = PNPy.createGeometry.circular_electrode(**recordingParametersNew)
+        electrodePos = PyPNS.createGeometry.circular_electrode(**recordingParametersNew)
 
         # combine electrode position and extracellular medium model
         modularRecMechs = []
         for recMechIndex in [0,1,2]:
-            modularRecMechs.append(PNPy.RecordingMechanism(electrodePos, LFPMech[recMechIndex]))
+            modularRecMechs.append(PyPNS.RecordingMechanism(electrodePos, LFPMech[recMechIndex]))
             bundle.add_recording_mechanism(modularRecMechs[-1])
 
         # run the simulation
@@ -150,5 +150,7 @@ for i in [0,1]:
         saveDict['myelinatedSFAPsFEM'] = SFAPsFEM
         saveDict['myelinatedSFAPIdeal'] = SFAPsIdeal
 
+if not os.path.exists('SFAPs'):
+    os.makedirs('SFAPs')
 
 pickle.dump(saveDict, open(os.path.join('SFAPs', 'SFAPsForAmplitudePlot.dict'), "wb"))

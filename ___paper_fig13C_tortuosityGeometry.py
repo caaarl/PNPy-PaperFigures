@@ -1,4 +1,4 @@
-import PNPy
+import PyPNS
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -11,7 +11,7 @@ numberOfAxons = 1
 
 # bundle guide
 segmentLengthAxon = 30
-bundleGuide = PNPy.createGeometry.get_bundle_guide_straight(lengthOfBundle, segmentLengthAxon)
+bundleGuide = PyPNS.createGeometry.get_bundle_guide_straight(lengthOfBundle, segmentLengthAxon)
 
 # ----------------------------- stimulation params ---------------------------
 
@@ -27,7 +27,7 @@ rectangularSignalParams = {'amplitude': 50., #50,  # Pulse amplitude (mA)
                            }
 
 
-intraParameters = {'stimulusSignal': PNPy.signalGeneration.rectangular(**rectangularSignalParams)}
+intraParameters = {'stimulusSignal': PyPNS.signalGeneration.rectangular(**rectangularSignalParams)}
 
 # ----------------------------- recording params -------------------------------
 
@@ -68,9 +68,9 @@ for RDCInd, RDC in enumerate(RDCs):
                         }
 
     # create the bundle with all properties of axons and recording setup
-    bundle = PNPy.Bundle(**bundleParameters)
+    bundle = PyPNS.Bundle(**bundleParameters)
 
-    ax = PNPy.plot.geometry_definition(bundle)
+    ax = PyPNS.plot.geometry_definition(bundle)
     ax.set_xlim((1000, 1300))
     ax.set_ylim((-200, 200))
     ax.set_zlim((-200, 200))

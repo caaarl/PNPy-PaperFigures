@@ -1,4 +1,4 @@
-import PNPy
+import PyPNS
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -11,12 +11,12 @@ rc('text.latex', preamble='\usepackage{sfmath}')
 # set length of bundle and number of axons
 lengthOfBundle = 400000
 segmentLengthAxon = 30
-bundleGuide = PNPy.createGeometry.get_bundle_guide_straight(lengthOfBundle, segmentLengthAxon)
+bundleGuide = PyPNS.createGeometry.get_bundle_guide_straight(lengthOfBundle, segmentLengthAxon)
 
 extracellulars = []
-extracellulars.append(PNPy.Extracellular.homogeneous(sigma=1.2))
-extracellulars.append(PNPy.Extracellular.precomputedFEM(bundleGuide))
-extracellulars.append(PNPy.Extracellular.analytic(bundleGuide))
+extracellulars.append(PyPNS.Extracellular.homogeneous(sigma=1.2))
+extracellulars.append(PyPNS.Extracellular.precomputedFEM(bundleGuide))
+extracellulars.append(PyPNS.Extracellular.analytic(bundleGuide))
 
 xPositions = np.arange(-15000, 15000, 10)
 sourceCurrents = np.ones(1)
@@ -41,6 +41,9 @@ plt.xlabel('longitudinal distance ($\mu$m)')
 plt.legend(loc='best', frameon=False)
 
 import os
+if not os.path.exists('figures'):
+    os.makedirs('figures')
+    
 xlimits = ([-15000,15000], [-500,500])
 figureNames = ['fig7_voltageProfileFull.eps', 'fig7_voltageProfileZoomed.eps']
 for limInd in range(2):
