@@ -5,9 +5,12 @@ import cPickle as pickle
 import Tkinter as tk
 import tkFileDialog as filedialog
 
-root = tk.Tk()
-root.withdraw()
-filepath = filedialog.askopenfilename()
+# doesn't work
+# root = tk.Tk()
+# root.withdraw()
+# filepath = filedialog.askopenfilename()
+
+filepath = 'activationExtracellular/activationPaper1.dict'
 
 saveDict = pickle.load(open(os.path.join(filepath), "rb" ))
 

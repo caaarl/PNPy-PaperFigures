@@ -8,8 +8,8 @@ colors = np.array(((0.,0.,0.), (230., 159., 0.), (86., 180., 233.), (0., 158., 1
 # load SFAP dictionary
 saveDict = pickle.load(open(os.path.join('SFAPs', 'SFAPsCuffWidth3.dict'), "rb" ))
 
-unmyelinatedCuffWidths = saveDict['cuffWidths']
-myelinatedCuffWidths = saveDict['cuffWidths']
+unmyelinatedCuffWidths = saveDict['cuffWidthsUnmyelinated']
+myelinatedCuffWidths = saveDict['cuffWidthsMyelinated']
 unmyelinatedSFAPs = saveDict['unmyelinatedSFAPs']
 myelinatedSFAPs = saveDict['myelinatedSFAPs']
 diametersUnmyel = saveDict['unmyelinatedDiameters']

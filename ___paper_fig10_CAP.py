@@ -6,7 +6,7 @@ import cPickle as pickle
 
 # two simulations, one for myelinated fibres, one for unmyelinated ones.
 
-electrodeDistance = 70000 # 9cm bundle length
+electrodeDistance = 70000 # um
 
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------- Simulation parameters are the same for both --------------------------------------
@@ -121,7 +121,7 @@ tStop = 150
 
 # bundle parameters
 elecDist = electrodeDistance # myelinated fibers conduct too slow, therefore artificially shorten the bundle
-nAxons = 1
+nAxons = 2 # 150
 bundleLength = elecDist + 12000 # add some length so there is no artefact of the signal reaching the axon end
 
 # set all properties of the bundle
@@ -188,18 +188,29 @@ legends = ['Unmyelinated', 'Myelinated']
 recMechLegends = ['homogeneous', 'radially inhomogeneous', 'cuff']
 recMechMarkers = ['o', 'v']
 
+# number of time steps per fibre type
 nUnmyelinated = np.shape(timeUnmyelinated)[0]
 nMyelinated = np.shape(timeMyelinated)[0]
+# max number of time steps
+nMax = np.max((nMyelinated, nUnmyelinated))
+
+if nUnmyelinated >= nMyelinated:
+    t = timeUnmyelinated
+else:
+    t = timeMyelinated
+
 
 CAPs = []
 for recMechIndex in range(3):
 
-    CAPMyelinatedLonger = np.zeros(nUnmyelinated)
-    CAPMyelinatedLonger[0:nMyelinated] = CAPMyelinated[recMechIndex]
+    # array to accommodate both waveforms
+    CAP = np.zeros(nMax)
 
-    CAP = CAPMyelinatedLonger + CAPUnmyelinated[recMechIndex]
+    CAP[0:nMyelinated] = CAPMyelinated[recMechIndex]
 
-    plt.plot(timeUnmyelinated, CAP, label=recMechLegends[recMechIndex])
+    CAP[0:nUnmyelinated] += CAPUnmyelinated[recMechIndex]
+
+    plt.plot(t, CAP, label=recMechLegends[recMechIndex])
 
     CAPs.append(CAP)
 
@@ -214,6 +225,6 @@ if not os.path.exists('figures'):
 plt.savefig(os.path.join('figures', 'fig10_CAP.eps'),
         format='eps', dpi=300)
 
-np.save(open('plottedCAP', 'wb'), np.row_stack((timeUnmyelinated, CAPs)))
+np.save(open('plottedCAP', 'wb'), np.row_stack((t, CAPs)))
 
 plt.show()

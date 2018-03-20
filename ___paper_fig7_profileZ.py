@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # for LaTeX rendering
 from matplotlib import rc
 rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-rc('text', usetex=True)
+# rc('text', usetex=True)
 rc('text.latex', preamble='\usepackage{sfmath}')
 
 # set length of bundle and number of axons
