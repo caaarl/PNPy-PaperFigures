@@ -44,6 +44,21 @@ unmyelinatedParameters = {'fiberD': {'distName': 'manual', 'params':
     {'diameters': diametersUnmyel, 'densities':fibreProbabilityUnmyel}}}
 
 # ----------------------------------------------------------------------------------------------------------------------
+# ----------------------------------- Load and plot data for reference--------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------
+
+data = np.loadtxt('experimentalData/pw1ms_amp20.0mA.txt', delimiter=',')
+
+# convert time to ms, voltage mean and standard deviation to mV
+time = data[:,0]*1000
+voltage = data[:,1]/1000
+voltageError = data[:,2]/1000
+
+# plot the reference
+plt.plot(time, voltage, color='black', linewidth=1, label='experimental data')
+plt.fill_between(time, voltage-voltageError, voltage+voltageError, facecolor=np.ones(3)*0.6)
+
+# ----------------------------------------------------------------------------------------------------------------------
 # --------------------------------------- Unmyelinated simulation-------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -121,7 +136,7 @@ tStop = 150
 
 # bundle parameters
 elecDist = electrodeDistance # myelinated fibers conduct too slow, therefore artificially shorten the bundle
-nAxons = 2 # 150
+nAxons = 150
 bundleLength = elecDist + 12000 # add some length so there is no artefact of the signal reaching the axon end
 
 # set all properties of the bundle
